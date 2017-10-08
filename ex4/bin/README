@@ -1,0 +1,36 @@
+liatg
+305470924
+Liat Ginosar
+
+==============================================
+=  README for ex4: HashString
+				   ChainedHashSet
+				   OpenHashSet
+				   SimpleHashSet
+				   SimpleSet
+				   CollectionFacadeSet
+				   SimpleSetPerformerAnalyzer
+==============================================
+
+==============================
+= answering to the questions =
+==============================
+
+1. The class "HashString" (which i built aditionaly) purpose is to add flag to any string value, who saves parameter with the relevant state : deleted,new or occupied.
+I built this class in order to enable knowing (when using openHasSet) whether the cell in the table is totally empty, or was full by value that was deleted 
+or is occupied by a certain value.  
+
+2. I chose to implement ChainedHashTable in the way who was reccomanded by the school. Which means i used an ArrayList<LinkedList<String>> instead of a standard array
+i found this way the most comfortable , reasonable and effective way.
+
+3. I implemented  the deletion mechanism in OpenHasSet in the following way: i wrapped any string who should be hashed to the table in object called HashString
+and that object has a private field called State who keep the state of the cell (NEW, DELETED or OCCUPIED) and in that way i know the "history" of the cell in case i want to operate things on the
+table such as delete value, add value or checking whether the table contains certain value.
+
+4. the results of the analaysis.  
+
+5.
+
+
+======================
+=  Special Comments  =

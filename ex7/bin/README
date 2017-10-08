@@ -1,0 +1,204 @@
+liat_gin
+oranpa
+
+===========
+EX7 README:
+===========
+
+============================
+Description of the classes:
+============================
+
+oop.ex7.blocks:
+===============
+
+1) Block: an abstract class that represents any kind of block in the program.
+   Any block starts with "{" and ends with: "}" (not includes arrays).
+   Block can be: The whole program, method and if or while.
+   Contains the abstract method "checkLineAllowed" which decides whether
+   the given line in the block is legal line or not. Therefore any class
+   that extends from block has to implement
+   this method.
+   
+2) ConditionFactory: class that creates a new condition block : 
+   If block or while block.
+
+3) Conditions: the father class of If and While.Represents block of the
+   type condition. Extends from InnerBlock Class.
+
+4) GlobalBlock: represents the global block which means the block of 
+   the whole file (if we think about it as a class so globalBlock is the all class).
+   Extends from Block.
+   
+5) If: represents a block of If. Extends from Condition.
+
+6) InnerBlock: represents any block that is not the global block which includes 
+   methods and condition blocks (if and while). Extends from Block.
+   
+7) Method: represents a method block. Extends from InnerBlock.
+
+8) While: represents a while block. Extends from Condition.
+
+oop.ex7.main:
+=============
+
+9) IllegalCodeException: exception that being called any time the code in
+   sjavac is not a legal code. prints an informative massage about the specific
+   error that occurred.
+   
+10) Sjavac: the "main" class that contains the main method. In that class the first
+    reading from the file is happening and this is the first pass on the file which
+    "cleans" the file from comments, ";" literals and checks brackets validity. 
+    After the first read sends the file to pars process (which parse the methods 
+    and the all other blocks in the file).
+     
+11) Tools: this class contains useful methods that being used several times
+    in the program.
+ 
+12) Variable: represents a Variable in the program. It can be a primitive
+    variable or not primitive variable (array). Contains all the essential 
+    data on the variable.
+
+oop.ex7.regex:
+==============
+
+13) RegexBox: this class contains all the regular expressions that we used 
+    in the program.
+
+
+oop.ex7.types:
+==============
+
+14) Type: represents the type of the variable in the program.
+
+15) TypeFactory: creates a new Variable according to the given type.
+
+16) IntegerVariable: represents an integer type of value. Extends from Type.
+
+17) DoubleVariable: represents an double type of value. Extends from Type.
+
+18) BooleanVariable: represents an boolean type of value. Extends from Type.
+
+19) StringVariable: represents an string type of value. Extends from Type.
+
+20) CharVariable: represents an char type of value. Extends from Type.
+
+21) WrongValueException: exception that being called when the value is not a
+    legal value. Extends from IllegalCodeException.
+
+
+====================
+General desciption:
+====================
+
+1. The design of ex7 : our code devided to 4 modules.
+
+The first module is the main.
+It's the module that suppose to connect between the other modules. Its class
+contains the sjavac which go over the file, first it read it to list of lines 
+and then parse the file by creating a global block which is the file 
+itself and divide the file into methods and global variables.
+The other classes are class called Tools which contain some methods that been used 
+for the entire program. 
+
+There are methods which their role is to remove spaces in the file, check if the line
+suppose to contain point in the end of it and check if the program has
+valid number of brackets. It contains also a class that represent the structure of 
+vriable.Variable contains the variable name, type, value, isPrimitive member 
+(which tell us if it is an array or not) and the block which contains the certain
+variable. 
+ 
+Other classes are classes of exceptions an exception which called
+illegalCodeException which is the the father of all exceptions which 
+suppose to print 1 in the program meaning there is an error in the code. 
+ 
+The second module is Block which contains the Block class. This class is the 
+one who responsible to parse blocks in the program, a block in our definition
+is every thing between open bracket to close one (not including arrays of course)
+including the file itself. The Block class is an abstract class and it is the
+father block of global block and inner block.We chose to make Block class as abstract
+because it represents block in general but not a specific one and therefore 
+it is not necessary to create an instance of it cause it too general.
+
+The inner block represent blocks which are in the file and global represent
+the entire file. Inner block which are method, if or while blocks.
+The block class responsible to parse every block in the program and
+every other class represent the structure of every block in the program.
+The inner blocks the hierarchy of the block module is the block class represent
+every block in the program and parse them his sons are global block and inner block
+inner blocks sons are method and conditions.Class Method represents method 
+and condition represent condition block like if and while and the sons of
+conditions are If and While classes. Other classes are exceptions which occur
+in the block module.
+       
+       
+The third module is regex module which contains the regex's which used
+ in the program.
+
+The fourth module is types. Type is module that suppose to manage the type 
+of the variable. It suppose to check if the type and the value of the variable 
+are match. The class type is the class which checks if the type of the
+variable and it`s value are match. This class is the father class of every type
+of variable which includes: boolean, integer char, double and String. 
+It checks whether the assignment  matches the type of the variable.
+
+2. Regular expression: here is regex that checks the type. The regex called 
+"valid type" this regex checks if the type of the variable is legal. It checks if 
+it's int ,boolean, char, double or String and if it contains []
+(if the type is an array or not). Other regex is regex that checks if the variable
+name is legal or not, if it contain "_" in the beginning or not.
+ 
+3. Error handling:  in this department we constructed types of exception
+for every mistake the class IllgalCodeException is the class that represents 
+the type 1 errors and through the program there are exceptions which inherit
+from this class like exception which thrown when there is problem with creation
+a method or problem with creation If block or there is a mismatch between the
+type and the value of the variable the appropriate exception are been thrown and an 
+appropriate message which say in one line what causes the problem.                    
+
+=======================
+Answering to questions:
+=======================
+
+4.  If we have to add new variables types to the program we will modify
+our program as following: for any new type we will define a new class
+called "NewTypeVariable" which extends the class Type and we will modify
+the TypeFactory that it will be able to create new instances of the new 
+types variables.
+
+5. If we will have to support if-else block it will be done as follows:
+we will define a new class called "Else" which will extends from If.
+The Else class will be considered as new kind of block. Therefore
+the father block of it will be the relevant If block. 
+The local variables of else block will be the same of its father If block
+because it can use the same variables that were defined in the If block
+or to create new variables in it.
+In addition we will update our regex box by creating new regex who finds
+a line that starts with "else" expression and that will follow a little
+changes in other regexes (because from now line that starts with "else"
+will be a legal line).
+
+
+
+
+
+
+
+
+
+
+
+
+-
+
+
+
+
+
+
+
+
+
+
+
+
